@@ -1,0 +1,37 @@
+# KDJ 监控配置
+
+# 监控股票池
+watchlist:
+  # 示例：
+  # - code: "002416"
+  #   name: "爱施德"
+  #   enabled: true
+
+# KDJ 参数
+kdj:
+  # J 值买入阈值（超卖区）
+  j_buy: 20
+  
+  # J 值卖出阈值（超买区）
+  j_sell: 80
+  
+  # KDJ 计算周期
+  n: 9
+  m: 3
+
+# 止损配置
+stop_loss:
+  # 止损百分比
+  pct: 6
+
+# 监控配置
+monitor:
+  # 监控频率（秒）
+  interval: 60  # 1 分钟
+  
+  # 监控时段
+  trading_hours:
+    morning_start: "9:30"
+    morning_end: "11:30"
+    afternoon_start: "13:00"
+    afternoon_end: "15:00"

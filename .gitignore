@@ -49,6 +49,9 @@ config/api_keys.yaml
 config/secrets.yaml
 config/github_config.yaml  # GitHub 配置（包含 Token）
 
+# 文档（可能包含敏感信息）
+PUSH_INSTRUCTIONS.md
+
 # Test
 test_*.py
 *.test

@@ -13,7 +13,7 @@ echo ""
 echo "📋 步骤 1: 敏感信息检查"
 echo "------------------------------------------------------------"
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
 if ! uv run python3 "$SCRIPT_DIR/scripts/check_secrets.py" --all 2>&1; then
     echo ""
