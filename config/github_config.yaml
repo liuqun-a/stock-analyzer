@@ -20,7 +20,7 @@ github:
 # 仓库配置
 repository:
   # 仓库名称
-  name: "lq"
+  name: "stock-analyzer"
   
   # 仓库描述
   description: "A 股/港股智能分析系统 - 实时监控、技术分析、AI 辅助决策"
