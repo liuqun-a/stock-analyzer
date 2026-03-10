@@ -154,8 +154,14 @@ class DailyReportGenerator:
             if response.status_code == 200:
                 data = response.json()
                 result = data.get('data', {})
+                
+                # ETF 价格除以 1000，股票除以 100
+                is_etf = code.startswith('51') or code.startswith('56') or \
+                         code.startswith('15') or code.startswith('16')
+                price_divisor = 1000 if is_etf else 100
+                
                 return {
-                    'price': float(result.get('f43', 0)) / 100,
+                    'price': float(result.get('f43', 0)) / price_divisor,
                     'change_pct': float(result.get('f14', 0)),
                     'volume': int(result.get('f47', 0))
                 }

@@ -41,13 +41,19 @@ class MarketReviewer:
             
             if data.get('data'):
                 d = data['data']
+                
+                # ETF 价格除以 1000，股票/指数除以 100
+                secid = params.get('secid', '')
+                is_etf = '159605' in secid or '51' in secid or '56' in secid
+                price_divisor = 1000 if is_etf else 100
+                
                 return {
                     'name': d.get('f12', ''),
-                    'price': float(d.get('f43', 0)) / 100,
+                    'price': float(d.get('f43', 0)) / price_divisor,
                     'change_pct': float(d.get('f14', 0)),
-                    'high': float(d.get('f44', 0)) / 100,
-                    'low': float(d.get('f45', 0)) / 100,
-                    'open': float(d.get('f46', 0)) / 100,
+                    'high': float(d.get('f44', 0)) / price_divisor,
+                    'low': float(d.get('f45', 0)) / price_divisor,
+                    'open': float(d.get('f46', 0)) / price_divisor,
                     'volume': int(d.get('f47', 0)),
                     'turnover': float(d.get('f48', 0)),
                 }
