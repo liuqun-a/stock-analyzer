@@ -259,17 +259,25 @@ class DataSourceManager:
             data = response.json()
             result = data.get('data', {})
             if result:
+                # 判断证券类型：ETF 基金 vs 股票
+                # ETF 代码：51/56 开头（沪市），15/16 开头（深市）
+                is_etf = code.startswith('51') or code.startswith('56') or \
+                         code.startswith('15') or code.startswith('16')
+                
+                # ETF 价格单位是 1/1000，股票是 1/100
+                price_divisor = 1000 if is_etf else 100
+                
                 return {
                     'source': 'eastmoney',
-                    'price': float(result.get('f43', 0)) / 100,
+                    'price': float(result.get('f43', 0)) / price_divisor,
                     'change_pct': float(result.get('f14', 0)),
                     'volume': int(result.get('f47', 0)),
                     'turnover': float(result.get('f38', 0)),
-                    'high': float(result.get('f44', 0)) / 100,
-                    'low': float(result.get('f45', 0)) / 100,  # 当天最低价
-                    'open': float(result.get('f46', 0)) / 100,
-                    'prev_close': float(result.get('f60', 0)) / 100,
-                    'daily_low': float(result.get('f45', 0)) / 100,  # 当天最低价（别名）
+                    'high': float(result.get('f44', 0)) / price_divisor,
+                    'low': float(result.get('f45', 0)) / price_divisor,  # 当天最低价
+                    'open': float(result.get('f46', 0)) / price_divisor,
+                    'prev_close': float(result.get('f60', 0)) / price_divisor,
+                    'daily_low': float(result.get('f45', 0)) / price_divisor,  # 当天最低价（别名）
                     'time': datetime.now().strftime('%H:%M:%S')
                 }
         return None
