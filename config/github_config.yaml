@@ -1,0 +1,64 @@
+# GitHub 配置文件
+# ⚠️ 此文件包含敏感信息，已添加到 .gitignore，不会提交到 Git
+# 文件权限：600（仅所有者可读写）
+
+# GitHub 账号信息
+github:
+  # GitHub 用户名
+  username: "liuqun-a"
+  
+  # GitHub 邮箱
+  email: "80503830@qq.com"
+  
+  # Personal Access Token (Fine-grained)
+  # 注意：Fine-grained token 无法通过 API 测试，但推送功能正常
+  token: "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"
+  
+  # Token 类型
+  token_type: "fine-grained"
+
+# 仓库配置
+repository:
+  # 仓库名称
+  name: "lq"
+  
+  # 仓库描述
+  description: "A 股/港股智能分析系统 - 实时监控、技术分析、AI 辅助决策"
+  
+  # 可见性：public 或 private
+  visibility: "public"
+  
+  # 许可证
+  license: "MIT"
+  
+  # 主题标签
+  topics:
+    - stock
+    - python
+    - openclaw
+    - ai
+    - quant
+    - a-share
+    - technical-analysis
+
+# Git 配置
+git:
+  # 默认分支名称
+  default_branch: "main"
+  
+  # 远程仓库名称
+  remote_name: "origin"
+  
+  # 远程仓库 URL（自动生成）
+  # remote_url: "https://github.com/liuqun-a/lq.git"
+
+# 发布配置
+publish:
+  # 是否自动创建 GitHub Release
+  auto_release: false
+  
+  # 是否自动推送
+  auto_push: true
+  
+  # 提交前检查
+  pre_commit_check: true

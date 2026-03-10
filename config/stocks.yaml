@@ -1,0 +1,66 @@
+# 监控股票池配置
+
+# A 股核心池
+a_shares:
+  - code: "600519"
+    name: "贵州茅台"
+    watch_price: 1700
+    alert_pct: 3
+    enabled: true
+    
+  - code: "000858"
+    name: "五粮液"
+    watch_price: 150
+    alert_pct: 3
+    enabled: true
+    
+  - code: "300750"
+    name: "宁德时代"
+    watch_price: 200
+    alert_pct: 5
+    enabled: true
+    
+  - code: "601318"
+    name: "中国平安"
+    watch_price: 50
+    alert_pct: 3
+    enabled: true
+
+# 港股核心池
+hk_shares:
+  - code: "00700"
+    name: "腾讯控股"
+    watch_price: 400
+    alert_pct: 3
+    enabled: true
+    
+  - code: "09988"
+    name: "阿里巴巴"
+    watch_price: 80
+    alert_pct: 5
+    enabled: true
+    
+  - code: "03690"
+    name: "美团"
+    watch_price: 120
+    alert_pct: 5
+    enabled: true
+
+# 自定义监控股票（可随时添加）
+custom_watch:
+  - code: "561570"
+    name: "油气 ETF"
+    watch_price: 15.48    # 基准价（2026-03-10 09:43）
+    alert_pct: 1          # ±1% 预警
+    enabled: true
+    
+  - code: "159206"
+    name: "卫星 ETF"
+    watch_price: 18.29    # 基准价（2026-03-10 09:48）
+    alert_pct: 1          # ±1% 预警
+    enabled: true
+    
+  - code: "002416"
+    name: "爱施德"
+    alert_price: 12.00    # 警戒价：低于此价格预警
+    enabled: true

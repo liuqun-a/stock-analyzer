@@ -1,0 +1,62 @@
+# GitHub 配置文件模板
+# 复制为 github_config.yaml 并填入真实值
+# ⚠️ 此文件包含敏感信息，不要提交到 Git！
+
+# GitHub 账号信息
+github:
+  # GitHub 用户名
+  username: "YOUR_USERNAME"
+  
+  # GitHub 邮箱（用于 commit）
+  email: "your-email@example.com"
+  
+  # Personal Access Token（用于推送）
+  # 生成方法：https://github.com/settings/tokens
+  # 需要的权限：repo, workflow
+  token: "ghp_xxxxxxxxxxxxxxxxxxxx"
+
+# 仓库配置
+repository:
+  # 仓库名称
+  name: "stock-analyzer"
+  
+  # 仓库描述
+  description: "A 股/港股智能分析系统 - 实时监控、技术分析、AI 辅助决策"
+  
+  # 可见性：public 或 private
+  visibility: "public"
+  
+  # 许可证：MIT, Apache-2.0, GPL-3.0 等
+  license: "MIT"
+  
+  # 主题标签
+  topics:
+    - stock
+    - python
+    - openclaw
+    - ai
+    - quant
+    - a-share
+    - technical-analysis
+
+# Git 配置
+git:
+  # 默认分支名称
+  default_branch: "main"
+  
+  # 远程仓库名称
+  remote_name: "origin"
+  
+  # 远程仓库 URL（自动生成，也可手动指定）
+  # remote_url: "https://github.com/YOUR_USERNAME/stock-analyzer.git"
+
+# 发布配置
+publish:
+  # 是否自动创建 GitHub Release
+  auto_release: false
+  
+  # 是否自动推送
+  auto_push: true
+  
+  # 提交前检查
+  pre_commit_check: true

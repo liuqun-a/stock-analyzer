@@ -1,0 +1,68 @@
+# 预警配置
+
+# 价格预警
+price_alert:
+  enabled: true
+  threshold_pct: 3        # 默认涨跌幅超过 3% 预警
+  limit_up_alert: true    # 涨跌停提醒
+  limit_down_alert: true  # 跌停提醒
+  
+# 个股自定义预警（优先级高于默认值）
+custom_thresholds:
+  "561570":
+    alert_pct: 1          # 油气 ETF 特殊配置：±1% 预警
+    base_price: 15.48     # 基准价
+    
+  "159206":
+    alert_pct: 1          # 卫星 ETF 特殊配置：±1% 预警
+    base_price: 18.29     # 基准价
+    
+  "002416":
+    alert_type: "price_below"  # 价格低于警戒线预警
+    alert_price: 12.00         # 警戒价：¥12.00
+    check_daily_low: true      # 同时检查当天最低价
+
+# 成交量预警
+volume_alert:
+  enabled: true
+  threshold_ratio: 2      # 成交量超日均 2 倍预警
+  huge_volume_ratio: 5    # 巨量（5 倍）特别提醒
+
+# 资金流向预警
+capital_flow_alert:
+  enabled: true
+  large_inflow: 10000000    # 大单净流入超 1000 万
+  large_outflow: -10000000  # 大单净流出超 1000 万
+
+# 时间预警
+time_alert:
+  pre_open: "9:25"      # 集合竞价提醒
+  market_open: "9:30"   # 开盘提醒
+  pre_close: "14:55"    # 收盘前提醒
+  market_close: "15:00" # 收盘提醒
+
+# 港股特别预警
+hk_alert:
+  enabled: true
+  currency_alert: true  # 汇率波动提醒
+  volatility_pct: 8     # 港股波动大，阈值设高些
+
+# 推送配置
+notification:
+  channel: "feishu"     # 飞书推送
+  quiet_hours:          # 静默时段（不推送非紧急预警）
+    start: "23:00"
+    end: "8:00"
+  dedup_interval: 300   # 去重间隔（秒），5 分钟内相同预警不重复推送
+
+# API 限流配置（智兔数服免费额度）
+rate_limit:
+  enabled: true
+  daily_limit: 200      # 每日 200 次
+  per_minute_limit: 300 # 每分钟 300 次
+  # 智能刷新策略：
+  # - 非交易时段：暂停监控
+  # - 交易时段：根据剩余次数动态调整刷新间隔
+  smart_interval: true  # 启用智能间隔
+  min_interval: 5       # 最小刷新间隔（秒）
+  max_interval: 60      # 最大刷新间隔（秒）
