@@ -9,13 +9,23 @@ echo "🔍 股票分析 Skill - 提交前检查"
 echo "============================================================"
 echo ""
 
-# 🔴 步骤 1: 敏感信息检查
+# 🔴 步骤 1: 敏感信息检查（只检查暂存文件）
 echo "📋 步骤 1: 敏感信息检查"
 echo "------------------------------------------------------------"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
-if ! uv run python3 "$SCRIPT_DIR/scripts/check_secrets.py" --all 2>&1; then
+# 获取暂存文件列表
+STAGED_FILES=$(git diff --cached --name-only)
+
+if [ -z "$STAGED_FILES" ]; then
+    echo "✅ 没有暂存文件，跳过检查"
+else
+    echo "检查暂存文件："
+    echo "$STAGED_FILES"
+    echo ""
+    
+    if ! uv run python3 "$SCRIPT_DIR/scripts/check_secrets.py" $STAGED_FILES 2>&1; then
     echo ""
     echo "============================================================"
     echo "🚨 敏感信息检查失败！"
