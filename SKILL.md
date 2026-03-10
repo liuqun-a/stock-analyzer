@@ -2,8 +2,13 @@
 name: stock-analyzer
 description: A 股/港股分析工具 - 行情查询、实时监控、财报分析、公告监控、资金流向
 author: 财神爷
-version: 2.0.0
+version: 2.1.0
 metadata: {"clawdbot":{"emoji":"📈","requires":{"bins":["python3"]}}}
+rules:
+  - 提交前必须执行敏感信息检查
+  - 新 Skill 必须使用独立仓库
+  - 仓库名必须经用户确认
+  - 提交前必须显示内容并确认
 ---
 
 # A 股/港股分析技能
@@ -180,4 +185,24 @@ crontab -e
 - [ ] 融资融券数据
 - [ ] 机构调研
 - [ ] 盈利预测
+
+---
+
+## ⚠️ 规则（重要）
+
+**提交规则：**
+- ✅ 提交前必须执行敏感信息检查
+- ✅ 新 Skill 必须使用独立仓库
+- ✅ 仓库名必须经用户确认
+- ✅ 提交前必须显示内容并确认
+
+**详细规则：**
+- [docs/COMMIT_RULES.md](docs/COMMIT_RULES.md) - 提交规则
+- [docs/AI_RULES.md](docs/AI_RULES.md) - AI 会话规则
+- [docs/PUBLISH_RULES.md](docs/PUBLISH_RULES.md) - 发布规则
+
+**违反后果：**
+- ❌ 第一次：警告
+- ❌ 第二次：撤销提交
+- ❌ 第三次：禁止提交权限
 - [ ] 策略回测

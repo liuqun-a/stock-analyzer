@@ -1,54 +1,75 @@
 #!/bin/bash
-# Git Pre-commit Hook - 敏感信息检查
-# 在每次 commit 前自动检查是否包含敏感信息
+# Git Pre-commit Hook - 强制敏感信息检查 + 确认
+# 所有提交都必须通过此检查
 
 set -e
 
-echo "🔍 运行敏感信息检查..."
+echo "============================================================"
+echo "🔍 股票分析 Skill - 提交前检查"
+echo "============================================================"
 echo ""
 
-# 获取暂存区文件
-FILES=$(git diff --cached --name-only --diff-filter=ACM)
+# 🔴 步骤 1: 敏感信息检查
+echo "📋 步骤 1: 敏感信息检查"
+echo "------------------------------------------------------------"
 
-if [ -z "$FILES" ]; then
-    echo "✅ 没有文件需要检查"
-    exit 0
-fi
-
-echo "📋 检查以下文件:"
-echo "$FILES"
-echo ""
-
-# 运行检查脚本
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-python3 "$SCRIPT_DIR/scripts/check_secrets.py" $FILES
 
-CHECK_RESULT=$?
-
-if [ $CHECK_RESULT -ne 0 ]; then
+if ! uv run python3 "$SCRIPT_DIR/scripts/check_secrets.py" --all 2>&1; then
     echo ""
-    echo "🚨 发现敏感信息！"
+    echo "============================================================"
+    echo "🚨 敏感信息检查失败！"
+    echo "============================================================"
     echo ""
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo "⚠️  提交被阻止，原因：文件中包含敏感信息"
     echo ""
     echo "📝 请执行以下操作："
     echo "   1. 检查上述文件中的敏感信息"
     echo "   2. 移除或替换敏感信息"
     echo "   3. 重新添加文件：git add <file>"
-    echo "   4. 重新提交：git commit"
+    echo "   4. 重新提交"
     echo ""
-    echo "💡 如果确认是误报，可以添加白名单："
-    echo "   编辑 scripts/check_secrets.py 中的 WHITELIST_PATTERNS"
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "📖 详细规则：docs/COMMIT_RULES.md"
+    echo "============================================================"
+    exit 1
+fi
+
+echo "✅ 敏感信息检查通过"
+echo ""
+
+# 🔴 步骤 2: 显示提交内容
+echo "📋 步骤 2: 即将提交的文件"
+echo "------------------------------------------------------------"
+
+FILES=$(git diff --cached --name-only)
+
+if [ -z "$FILES" ]; then
+    echo "❌ 没有暂存的文件，请先 git add"
+    exit 1
+fi
+
+echo "$FILES"
+echo ""
+
+# 🔴 步骤 3: 强制确认
+echo "============================================================"
+echo "⚠️  提交前确认"
+echo "============================================================"
+echo ""
+echo "规则：https://github.com/liuqun-a/stock-analyzer/blob/main/docs/COMMIT_RULES.md"
+echo ""
+read -p "确认提交？(y/N): " -n 1 -r
+echo
+
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     echo ""
-    echo "❌ 提交已阻止"
+    echo "❌ 提交已取消"
     exit 1
 fi
 
 echo ""
-echo "✅ 敏感信息检查通过"
-echo ""
+echo "✅ 确认提交"
+echo "============================================================"
 
-# 继续其他检查（如果有）
+# 继续提交
 exit 0

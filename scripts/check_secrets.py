@@ -62,7 +62,7 @@ WHITELIST_PATTERNS = [
     r'\{\{.*\}\}',  # 模板变量
     r'openclaw.*searxng',  # 本地路径
     r'cn/funds.*code',  # 基金代码 URL
-    r'mysql://\[\^',  # 正则表达式本身
+    r'mysql://',  # 正则表达式中的 MySQL 模式
 ]
 
 
